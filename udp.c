@@ -151,7 +151,7 @@ static int udp_socket_create(int local_port, struct sockaddr_storage *addr,
 
  fail:
     if (udp_fd >= 0)
-        close(udp_fd);
+      CLOSESOCKET(udp_fd);
     if(res0)
         freeaddrinfo(res0);
     return -1;

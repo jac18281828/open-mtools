@@ -6,6 +6,8 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 find_package(Threads REQUIRED)
 
+set(CMAKE_C_FLAGS "-O2 -g")
+
 set(SOURCE_FILES
   mtools.h
   tgetopt.c

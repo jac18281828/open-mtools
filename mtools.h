@@ -11,16 +11,16 @@
  * Note: this program is based on the sd_listen program by Tom Pusateri
  * (pusateri@cs.duke.edu) and developed by Jon Knight (J.P.Knight@lut.ac.uk).
  *
-  THE SOFTWARE IS PROVIDED "AS IS" AND INFORMATICA DISCLAIMS ALL WARRANTIES
-  EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
-  NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR
-  PURPOSE.  INFORMATICA DOES NOT WARRANT THAT USE OF THE SOFTWARE WILL BE
-  UNINTERRUPTED OR ERROR-FREE.  INFORMATICA SHALL NOT, UNDER ANY CIRCUMSTANCES,
-  BE LIABLE TO LICENSEE FOR LOST PROFITS, CONSEQUENTIAL, INCIDENTAL, SPECIAL OR
-  INDIRECT DAMAGES ARISING OUT OF OR RELATED TO THIS AGREEMENT OR THE
-  TRANSACTIONS CONTEMPLATED HEREUNDER, EVEN IF INFORMATICA HAS BEEN APPRISED OF
-  THE LIKELIHOOD OF SUCH DAMAGES.
- */
+ THE SOFTWARE IS PROVIDED "AS IS" AND INFORMATICA DISCLAIMS ALL WARRANTIES
+ EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+ NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+ PURPOSE.  INFORMATICA DOES NOT WARRANT THAT USE OF THE SOFTWARE WILL BE
+ UNINTERRUPTED OR ERROR-FREE.  INFORMATICA SHALL NOT, UNDER ANY CIRCUMSTANCES,
+ BE LIABLE TO LICENSEE FOR LOST PROFITS, CONSEQUENTIAL, INCIDENTAL, SPECIAL OR
+ INDIRECT DAMAGES ARISING OUT OF OR RELATED TO THIS AGREEMENT OR THE
+ TRANSACTIONS CONTEMPLATED HEREUNDER, EVEN IF INFORMATICA HAS BEEN APPRISED OF
+ THE LIKELIHOOD OF SUCH DAMAGES.
+*/
 
 /*
  * modified by Aviad Rozenhek [aviadr1@gmail.com] for open-mtools
@@ -39,26 +39,26 @@ extern int toptreset;
 extern char *toptarg;
 extern int tgetopt(int nargc, char * const *nargv, const char *ostr);
 
-#define mprintf(OPTS, FORMAT, ...)                       \
-  fprintf(stderr, FORMAT, ## __VA_ARGS__);               \
-  fflush(stderr);                                        \
-  if(OPTS && OPTS->o_output) {                           \
-    fprintf(OPTS->o_output, FORMAT, ## __VA_ARGS__);     \
-  }
+#define mprintf(OPTS, FORMAT, ...)                              \
+    fprintf(stderr, FORMAT, ## __VA_ARGS__);                    \
+    fflush(stderr);                                             \
+    if(OPTS && OPTS->o_output) {                                \
+        fprintf(OPTS->o_output, FORMAT, ## __VA_ARGS__);        \
+    }
 
 
 #if 0
 inline int mprintf(int opts, char * const format, ...) {
-  va_list argptr;
-  va_start(argptr, format);
-  int rc = vfprintf(stderr, format, argptr);  
-  fflush(stderr);
-  if(opts && opts->o_output) { 
-    rc = vfprintf(opts->o_output, format, argptr); 
-    fflush(opts->o_output); 
-  }
-  va_end(argptr);
-  return rc;
+    va_list argptr;
+    va_start(argptr, format);
+    int rc = vfprintf(stderr, format, argptr);  
+    fflush(stderr);
+    if(opts && opts->o_output) { 
+        rc = vfprintf(opts->o_output, format, argptr); 
+        fflush(opts->o_output); 
+    }
+    va_end(argptr);
+    return rc;
 }
 #endif
 
