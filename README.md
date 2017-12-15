@@ -3,8 +3,6 @@
 This package contains the 'msend' and 'mdump' tools for testing
 multicast networks.  
 
-The documentation is under the "TestNet" directory.
-
 These tools are offered to the general public for any use without license.
 
   THE SOFTWARE IS PROVIDED "AS IS" AND INFORMATICA DISCLAIMS ALL WARRANTIES
