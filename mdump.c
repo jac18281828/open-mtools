@@ -27,6 +27,9 @@
  * modified by Aviad Rozenhek [aviadr1@gmail.com] for open-mtools
  */
 
+#include <string.h>
+#include <ctype.h>
+
 #include "mtools.h"
 
 #define FF_ARRAY_ELEMS(a)   (sizeof(a) / sizeof((a)[0]))

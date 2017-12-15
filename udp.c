@@ -41,8 +41,9 @@
 #define AVUNERROR(e) (e)
 #endif
 
-//#define ff_neterrno() AVERROR(errno)
-
+#ifndef _WIN32
+#define ff_neterrno() AVERROR(errno)
+#else
 static int ff_neterrno(void)
 {
     int err = WSAGetLastError();
@@ -62,10 +63,10 @@ static int ff_neterrno(void)
     }
     return -err;
 }
-
 #define ff_neterrno() WSAGetLastError()
 #define FF_NETERROR(err) WSA##err
 #define WSAEAGAIN WSAEWOULDBLOCK
+#endif
 
 #ifdef _MSC_VER
 #   define HAVE_WINSOCK2_H 1
@@ -150,7 +151,7 @@ static int udp_socket_create(int local_port, struct sockaddr_storage *addr,
 
  fail:
     if (udp_fd >= 0)
-        closesocket(udp_fd);
+        close(udp_fd);
     if(res0)
         freeaddrinfo(res0);
     return -1;

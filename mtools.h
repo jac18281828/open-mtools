@@ -30,7 +30,6 @@
 #include <stdlib.h>
 #include <errno.h>
 
-
 /* Many of the following definitions are intended to make it easier to write
  * portable code between windows and unix. */
 
@@ -40,10 +39,28 @@ extern int toptreset;
 extern char *toptarg;
 extern int tgetopt(int nargc, char * const *nargv, const char *ostr);
 
-#define mprintf(opts, format, ...)                                \
-    fprintf(stderr, format, __VA_ARGS__);  fflush(stderr);         \
-    if(opts && opts->o_output) { fprintf(opts->o_output, format, __VA_ARGS__); fflush(opts->o_output); }
+#define mprintf(OPTS, FORMAT, ...)                       \
+  fprintf(stderr, FORMAT, ## __VA_ARGS__);               \
+  fflush(stderr);                                        \
+  if(OPTS && OPTS->o_output) {                           \
+    fprintf(OPTS->o_output, FORMAT, ## __VA_ARGS__);     \
+  }
 
+
+#if 0
+inline int mprintf(int opts, char * const format, ...) {
+  va_list argptr;
+  va_start(argptr, format);
+  int rc = vfprintf(stderr, format, argptr);  
+  fflush(stderr);
+  if(opts && opts->o_output) { 
+    rc = vfprintf(opts->o_output, format, argptr); 
+    fflush(opts->o_output); 
+  }
+  va_end(argptr);
+  return rc;
+}
+#endif
 
 #if defined(_MSC_VER)
 // Windows-only includes
@@ -81,6 +98,7 @@ extern int tgetopt(int nargc, char * const *nargv, const char *ostr);
 #   define perror(opts, x) mprintf(opts, "%s: %d\n",x,GetLastError())
 #else
 #   include <sys/time.h>
+#   define perror(opts, x) mprintf(opts, "%s: %s\n",x,strerror(errno))
 #endif
 
 #include <string.h>
