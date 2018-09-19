@@ -1,5 +1,7 @@
 # Open MTools
 
+FORKED to port to my version of Linux
+
 This package contains the 'msend' and 'mdump' tools for testing
 multicast networks.  
 
